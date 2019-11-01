@@ -19,12 +19,12 @@ namespace DataSourceGetter
             var dataSourceDirectory = _config.Value.DataSourceFilePath;
             if (Directory.Exists(dataSourceDirectory))
             {
-                string[] fileEntries = Directory.GetFiles(dataSourceDirectory);
+                string[] fileEntries = Directory.GetFiles(dataSourceDirectory,"*.csv");
                 foreach (string filePath in fileEntries)
                 {
                     try
                     {
-                        dataSourceDictionary.Add(Path.GetFileName(filePath), new DataSourceDoc(filePath));
+                        dataSourceDictionary.Add(Path.GetFileName(filePath), new DataSourceDoc(filePath, _logger));
                     }
                     catch(Exception ex)
                     {
@@ -40,7 +40,8 @@ namespace DataSourceGetter
             {
                 return dataSourceDoc.GetRowData;
             }
-            return $"Файл не найден";
+            _logger.LogError($"DataSourceGetterService Method: GetRowData Error:не удалось получить строку из файла {key}");
+            return $"не удалось получить строку из файла {key}";
         }
 
         public IEnumerable<string> GetCurrentState()

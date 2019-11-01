@@ -1,12 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -66,7 +61,7 @@ namespace DataSourceGetter
             //this code is called when the application stops
             try
             {
-                File.WriteAllLines(_conf.DataSourceFilePath, _DSGservice.GetCurrentState());
+                File.WriteAllLines(_conf.DataSourceFilePath+"result.txt", _DSGservice.GetCurrentState());
             }
             catch (Exception ex) {
                 _logger.LogError(ex.ToString());
