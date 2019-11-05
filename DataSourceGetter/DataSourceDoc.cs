@@ -10,14 +10,14 @@ namespace DataSourceGetter
         private readonly ILogger _logger;
         public DataSourceDoc(string filePath, ILogger logger)
         {
-            Name = filePath;
+            FilePath = filePath;
             SourceLines = File.ReadAllLines(filePath).ToArray();
             currentIncrement = -1;
             maxRowsCount = SourceLines.Length;
             _logger = logger;
         }
 
-        public string Name { get; private set; }
+        public string FilePath { get; private set; }
         private string[] SourceLines { get; }
         private int currentIncrement;
         private int maxRowsCount;
@@ -29,7 +29,7 @@ namespace DataSourceGetter
                 var rowNumber = Interlocked.Increment(ref currentIncrement);
                 if (rowNumber >= maxRowsCount)
                 {
-                    _logger.LogError($"В файле {Name} закончились доступные строки");
+                    _logger.LogError($"В файле {FilePath} закончились доступные строки");
                     return "ERROR: file reach the end";
                 }
 
@@ -41,8 +41,18 @@ namespace DataSourceGetter
         {
             get
             {
-                return $"File {Name} now in row {currentIncrement + 1}, totalrows {maxRowsCount}";
+                return $"File {FilePath} now in row {currentIncrement + 1}, totalrows {maxRowsCount}";
             }
+        }
+
+        public string[] GetUnUsedLines()
+        {
+            if (currentIncrement < 0)
+            {
+                return SourceLines;
+            }
+
+            return SourceLines.Skip(currentIncrement + 1).ToArray();
         }
     }
 }

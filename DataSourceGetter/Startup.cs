@@ -61,9 +61,11 @@ namespace DataSourceGetter
             //this code is called when the application stops
             try
             {
-                File.WriteAllLines(_conf.DataSourceFilePath+"result.txt", _DSGservice.GetCurrentState());
+                File.AppendAllLines(Path.Combine(_conf.DataSourceFilePath, "result.txt"), _DSGservice.GetCurrentState());//+ DateTime.Now.ToShortTimeString() + "-" + DateTime.Now.ToShortTimeString() + "
+                _DSGservice.SaveCurrentStates();
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 _logger.LogError(ex.ToString());
             }
         }
