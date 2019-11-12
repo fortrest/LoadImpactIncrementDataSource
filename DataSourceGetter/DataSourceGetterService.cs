@@ -51,7 +51,7 @@ namespace DataSourceGetter
             var result = new List<string>();
             foreach (var item in dataSourceDictionary)
             {
-                result.Add(item.Value.GetDataSourceState);
+                result.Add(item.Value.DataSourceState);
             }
             return result;
         }
@@ -61,7 +61,7 @@ namespace DataSourceGetter
             foreach (var item in dataSourceDictionary)
             {
                 var fileLines = item.Value.GetUnUsedLines();
-                var fileName = Path.GetFileName(item.Value.FilePath).Replace(".csv","-unused.csv");
+                var fileName = Path.GetFileName(item.Value.FilePath).Replace(".csv", "-unused.csv");
 
                 File.WriteAllLines(Path.Combine(_config.Value.DataSourceFilePath, fileName), fileLines);
             }

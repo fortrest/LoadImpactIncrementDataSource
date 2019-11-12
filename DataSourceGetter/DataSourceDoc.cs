@@ -37,7 +37,7 @@ namespace DataSourceGetter
             }
         }
 
-        public string GetDataSourceState
+        public string DataSourceState
         {
             get
             {
