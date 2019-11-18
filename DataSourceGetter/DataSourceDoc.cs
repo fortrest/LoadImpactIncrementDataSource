@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using System;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -41,7 +42,7 @@ namespace DataSourceGetter
         {
             get
             {
-                return $"File {FilePath} now in row {currentIncrement + 1}, totalrows {maxRowsCount}";
+                return $"#{DateTime.Now.ToShortDateString()} {DateTime.Now.ToLongTimeString()} # File {FilePath} now in row {currentIncrement + 1}, totalrows {maxRowsCount}";
             }
         }
 

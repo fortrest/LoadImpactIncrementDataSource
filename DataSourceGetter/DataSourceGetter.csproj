@@ -5,7 +5,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="certificate.pfx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="certificate.pfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="certificate.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

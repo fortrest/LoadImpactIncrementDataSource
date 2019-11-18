@@ -1,0 +1,10 @@
+﻿{
+  "certificateSettings": {
+    "fileName": "certificate.pfx",
+    "password": "1qsdeF4+"
+  },
+  "httpsBindings": {
+    "ipaddress": "*",
+    "port": "443"
+  }
+}
