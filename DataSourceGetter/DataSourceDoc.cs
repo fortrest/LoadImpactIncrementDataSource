@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using System;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -15,9 +16,11 @@ namespace DataSourceGetter
             currentIncrement = -1;
             maxRowsCount = SourceLines.Length;
             _logger = logger;
+            filename = Path.GetFileName(filePath);
         }
 
         public string FilePath { get; private set; }
+        private string filename;
         private string[] SourceLines { get; }
         private int currentIncrement;
         private int maxRowsCount;
@@ -32,7 +35,7 @@ namespace DataSourceGetter
                     _logger.LogError($"В файле {FilePath} закончились доступные строки");
                     return "ERROR: file reach the end";
                 }
-
+                _logger.LogTrace($"Успешно возвращена строка {rowNumber+1} для файла {filename}");
                 return SourceLines[rowNumber];
             }
         }
@@ -41,7 +44,7 @@ namespace DataSourceGetter
         {
             get
             {
-                return $"File {FilePath} now in row {currentIncrement + 1}, totalrows {maxRowsCount}";
+                return $"#{DateTime.Now.ToShortDateString()} {DateTime.Now.ToLongTimeString()} # File {FilePath} now in row {currentIncrement + 1}, totalrows {maxRowsCount}";
             }
         }
 
